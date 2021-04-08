@@ -1,7 +1,7 @@
 <template>
   <div id="app">
      this is landing page
-     安安
+     安安123
   </div>
 </template>
 
