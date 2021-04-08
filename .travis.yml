@@ -31,15 +31,13 @@ install:
 before_script:
   - yarn lint
 
+
 jobs:
-  deploy:
-  - &deploy
+  deploy-provider: &deploy-provider
     provider: s3
-    region: ap-northeast-1
     access_key_id: ${AWS_ACCESS_KEY}
     secret_access_key: ${AWS_SECRET_KEY}
     bucket: ${AWS_S3_BUCKET}
-    local_dir: "dist"
     skip_cleanup: true
     on:
       branch:
@@ -50,8 +48,12 @@ jobs:
     - stage: index
       script: 
         - yarn build-index:${BUILD_ENV}
-      <<: *deploy
+      deploy:
+      - <<: *deploy-provider
+        local_dir: "dist"
     - stage: landing
       script: 
         - yarn build-landing:${BUILD_ENV}
-      <<: *deploy
+      deploy:
+      - <<: *deploy-provider
+        local_dir: "dist/landing"
