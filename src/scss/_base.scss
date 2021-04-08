@@ -1,0 +1,15 @@
+// required import
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+// import custom scss
+@import "./variables";
+
+// optional import
+@import "../../node_modules/bootstrap/scss/images";
+@import "../../node_modules/bootstrap/scss/grid";
+@import "../../node_modules/bootstrap/scss/utilities";
+
+@import "./custom/reboot";
+@import "./custom/typography";
