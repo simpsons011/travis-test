@@ -11,11 +11,6 @@ branches:
 cache: yarn
 
 before_install:
-  - pyenv global 3.7.1
-  - pip install -U pip
-  - pip install awscli
-  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY}
-  - aws configure set aws_secret_access_key ${AWS_SECRET_KEY}
   - |
     if [ $TRAVIS_BRANCH == "lab" ]; then
        export BUILD_ENV=lab
@@ -26,11 +21,15 @@ before_install:
     fi
 
 install:
+  - pyenv global 3.7.1
+  - pip install -U pip
+  - pip install awscli
+  - aws configure set aws_access_key_id ${AWS_ACCESS_KEY}
+  - aws configure set aws_secret_access_key ${AWS_SECRET_KEY}
   - yarn
 
 before_script:
   - yarn lint
-
 
 jobs:
   deploy-common: &deploy-common
@@ -39,6 +38,7 @@ jobs:
     secret_access_key: ${AWS_SECRET_KEY}
     bucket: ${AWS_S3_BUCKET}
     skip_cleanup: true
+    local_dir: "dist"
     on:
       branch:
         - master
@@ -50,10 +50,9 @@ jobs:
         - yarn build-index:${BUILD_ENV}
       deploy:
       - <<: *deploy-common
-        local_dir: "dist"
     - stage: landing
       script: 
         - yarn build-landing:${BUILD_ENV}
       deploy:
       - <<: *deploy-common
-        local_dir: "dist"
+       
