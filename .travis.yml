@@ -33,7 +33,7 @@ before_script:
 
 
 jobs:
-  deploy-provider: &deploy-provider
+  deploy-common: &deploy-common
     provider: s3
     access_key_id: ${AWS_ACCESS_KEY}
     secret_access_key: ${AWS_SECRET_KEY}
@@ -49,11 +49,11 @@ jobs:
       script: 
         - yarn build-index:${BUILD_ENV}
       deploy:
-      - <<: *deploy-provider
+      - <<: *deploy-common
         local_dir: "dist"
     - stage: landing
       script: 
         - yarn build-landing:${BUILD_ENV}
       deploy:
-      - <<: *deploy-provider
-        local_dir: "dist/landing"
+      - <<: *deploy-common
+        local_dir: "dist"
