@@ -1,6 +1,6 @@
-const PrerenderSPAPlugin = require("prerender-spa-plugin");
-const Renderer = PrerenderSPAPlugin.PuppeteerRenderer;
-const path = require("path");
+const PrerenderSPAPlugin = require("prerender-spa-plugin")
+const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+const path = require("path")
 
 const configFunc = (page, isDev) => {
   const configMap = {
@@ -41,9 +41,9 @@ const configFunc = (page, isDev) => {
           ]
         : []
     }
-  };
+  }
 
-  return configMap[page];
-};
+  return configMap[page] ? configMap[page] : configMap["index"]
+}
 
-module.exports = configFunc;
+module.exports = configFunc
