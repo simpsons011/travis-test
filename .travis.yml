@@ -38,6 +38,7 @@ jobs:
         - staging
   include:
     - stage: test
+      if: type = pull_request
       script:
         - yarn lint
     - stage: deploy
