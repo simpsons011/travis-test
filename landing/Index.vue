@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import isEmpty from "lodash/isEmpty"
 export default {};
 </script>
 
