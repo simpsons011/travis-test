@@ -8,6 +8,7 @@
 3
 <script>
 import env from "@/utility/env"
+import isEmpty from "lodash/isEmpty"
 export default {
   name: "App",
   components: {},
