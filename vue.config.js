@@ -1,3 +1,4 @@
+const path = require("path")
 const configFunc = require("./output")
 const isDev = process.env.NODE_ENV === "development"
 function resolve(dir) {
@@ -5,7 +6,7 @@ function resolve(dir) {
 }
 const config = configFunc(resolve)(process.argv[4], isDev)
 
-console.log(output)
+console.log(config)
 
 module.exports = {
   productionSourceMap: false,
