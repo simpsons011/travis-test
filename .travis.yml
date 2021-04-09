@@ -24,20 +24,19 @@ before_script:
     fi
 
 jobs:
+  deploy-common: &deploy-common
+    provider: s3
+    access_key_id: ${AWS_ACCESS_KEY}
+    secret_access_key: ${AWS_SECRET_KEY}
+    bucket: ${AWS_S3_BUCKET}
+    skip_cleanup: true
+    local_dir: "dist"
+    on:
+      branch:
+        - master
+        - lab
+        - staging
   include:
-    - &deploy-common
-      deploy: 
-        provider: s3
-        access_key_id: ${AWS_ACCESS_KEY}
-        secret_access_key: ${AWS_SECRET_KEY}
-        bucket: ${AWS_S3_BUCKET}
-        skip_cleanup: true
-        local_dir: "dist"
-        on:
-          branch:
-            - master
-            - lab
-            - staging
     - stage: test
       script:
         - yarn lint
@@ -45,12 +44,14 @@ jobs:
       script: 
        - yarn build-index:${BUILD_ENV}
        - export BUILD_PAGE=index
-    - <<: *deploy-common
+      deploy:
+      - <<: *deploy-common
     - stage: deploy
       script: 
       - yarn build-landing:${BUILD_ENV}
       - export BUILD_PAGE=landing
-    - <<: *deploy-common
+      deploy:
+      - <<: *deploy-common
     
 after_deploy:
   - pyenv global 3.7.1
