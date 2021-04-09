@@ -38,15 +38,18 @@ jobs:
         - staging
   include:
     - stage: test
+      if: type = pull_request
       script:
         - yarn lint
     - stage: deploy
+      if: type = push
       script: 
        - yarn build-index:${BUILD_ENV}
        - export BUILD_PAGE=index
       deploy:
       - <<: *deploy-common
     - stage: deploy
+      if: type = push
       script: 
       - yarn build-landing:${BUILD_ENV}
       - export BUILD_PAGE=landing

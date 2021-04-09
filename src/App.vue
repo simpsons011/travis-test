@@ -8,7 +8,6 @@
 3
 <script>
 import env from "@/utility/env"
-
 export default {
   name: "App",
   components: {},
