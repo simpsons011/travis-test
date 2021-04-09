@@ -14,7 +14,6 @@ install:
   - yarn
 
 before_script:
-  - echo "$TRAVIS_EVENT_TYPE"
   - |
     if [ $TRAVIS_BRANCH == "lab" ]; then
        export BUILD_ENV=lab
@@ -42,12 +41,14 @@ jobs:
       script:
         - yarn lint
     - stage: deploy
+      if: type = push
       script: 
        - yarn build-index:${BUILD_ENV}
        - export BUILD_PAGE=index
       deploy:
       - <<: *deploy-common
     - stage: deploy
+      if: type = push
       script: 
       - yarn build-landing:${BUILD_ENV}
       - export BUILD_PAGE=landing
