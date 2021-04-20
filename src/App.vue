@@ -2,12 +2,13 @@
   <div id="app">
     <img :src="env.VUE_APP_STATIC_PATH + 'img/logo.png'" />
     <router-view />
-    123
+    123456
   </div>
 </template>
 3
 <script>
 import env from "@/utility/env"
+import isEmpty from "lodash/isEmpty"
 export default {
   name: "App",
   components: {},
